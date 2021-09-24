@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:qrreader/pages/direcciones_page.dart';
 import 'package:qrreader/pages/mapas_page.dart';
+import 'package:qrreader/providers/ui_provider.dart';
 import 'package:qrreader/widgets/custom_navigatorbar.dart';
 import 'package:qrreader/widgets/scan_button.dart';
 
@@ -32,8 +34,11 @@ class _HomePageBody extends StatelessWidget {
  @override
   Widget build(BuildContext context) 
   {
+    // Obtener el selected menu opt
+    final uiProvider = Provider.of<UiProvider>(context);
+
     // Cambiar para mostrar la página respectiva
-    final currentIndex = 0;
+    final currentIndex = uiProvider.selectedMenuOpt;
 
     switch (currentIndex) 
     {
