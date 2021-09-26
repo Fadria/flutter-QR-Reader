@@ -110,4 +110,27 @@ class DBProvider
 
     return res;
   }
+
+  Future<int> deleteScan(int id) async
+  {
+    final db = await database;
+    final res = await db.delete('Scans', where: 'id = ?', whereArgs: [id]);
+
+    return res;
+  }
+
+  Future<int> deleteAllScans() async
+  {
+    final db = await database;
+    
+    // Forma 1
+    final res = await db.delete('Scans');
+
+    // Forma 2 - Más sencilla cuando necesitamos usar joins, podemos copiar la consulta de nuestro SGBD
+    /*final res = await db.rawDelete('''
+      DELETE FROM Scans
+    ''');*/
+
+    return res;
+  }
 }

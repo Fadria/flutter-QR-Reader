@@ -45,7 +45,7 @@ class _HomePageBody extends StatelessWidget {
     //final tempScan = new ScanModel(valor: 'http://google.es');
     //DBProvider.db.nuevoScan(tempScan);
     //DBProvider.db.getScanById(1).then((scan) => print(scan!.valor));
-    DBProvider.db.getTodosLosScans().then(print);
+    DBProvider.db.deleteAllScans().then(print);
 
     switch (currentIndex) 
     {
