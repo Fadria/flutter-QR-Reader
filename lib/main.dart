@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qrreader/pages/home_page.dart';
 import 'package:qrreader/pages/mapa_page.dart';
+import 'package:qrreader/providers/scan_list_provider.dart';
 import 'package:qrreader/providers/ui_provider.dart';
 
 void main() => runApp(MyApp());
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
       providers: 
       [
         ChangeNotifierProvider(create: (_) => new UiProvider()),
+        ChangeNotifierProvider(create: (_) => new ScanListProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
