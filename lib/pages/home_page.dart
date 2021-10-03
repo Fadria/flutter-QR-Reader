@@ -20,7 +20,11 @@ class HomePage extends StatelessWidget {
         title: Text('Historial'),
         actions: 
         [
-          IconButton(onPressed: (){}, icon: Icon(Icons.delete_forever))
+          IconButton(onPressed: ()
+          { 
+            Provider.of<ScanListProvider>(context, listen: false).borrarTodos();
+          }, 
+          icon: Icon(Icons.delete_forever))
         ],
       ),
       body: _HomePageBody(),
