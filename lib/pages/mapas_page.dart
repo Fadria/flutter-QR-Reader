@@ -13,14 +13,26 @@ class MapasPage extends StatelessWidget {
 
     return ListView.builder
     (
-      itemBuilder: (_, i) => ListTile
+      itemBuilder: (_, i) => Dismissible
+      (
+        key: UniqueKey(),
+        background: Container
         (
-          leading: Icon(Icons.location_on, color: Theme.of(context).primaryColor),
-          title: Text(scans[i].valor),
-          subtitle: Text(scans[i].id.toString()),
-          trailing: Icon(Icons.keyboard_arrow_right, color: Colors.grey),
-          onTap: () => print(scans[i].id),
+          color: Colors.red,
         ),
+        onDismissed: (DismissDirection direction)
+        {
+          Provider.of<ScanListProvider>(context, listen: false).borrarScanPorId(scans[i].id);
+        },
+        child: ListTile
+          (
+            leading: Icon(Icons.location_on, color: Theme.of(context).primaryColor),
+            title: Text(scans[i].valor),
+            subtitle: Text(scans[i].id.toString()),
+            trailing: Icon(Icons.keyboard_arrow_right, color: Colors.grey),
+            onTap: () => print(scans[i].id),
+          ),
+      ),
       itemCount: scans.length);
   }
 }
