@@ -6,7 +6,7 @@ class ScanListProvider extends ChangeNotifier
   List<ScanModel> scans = [];
   String tipoSeleccionado = 'http';
 
-  nuevoScan(String valor) async
+  Future<ScanModel> nuevoScan(String valor) async
   {
     final nuevoScan = new ScanModel(valor: valor);
     final id = await DBProvider.db.nuevoScan(nuevoScan);
@@ -18,6 +18,7 @@ class ScanListProvider extends ChangeNotifier
       notifyListeners();
     }
 
+    return nuevoScan;
   }
 
   cargarScans() async

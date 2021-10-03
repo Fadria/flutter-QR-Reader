@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:provider/provider.dart';
 import 'package:qrreader/providers/scan_list_provider.dart';
+import 'package:qrreader/utils/utils.dart';
 
 class ScanButton extends StatelessWidget {
   @override
@@ -23,11 +24,14 @@ class ScanButton extends StatelessWidget {
             ScanMode.QR // También podríamos usar un código de barras
           );
           */
-          final barcodeScanRes = 'http://google.com';
+          final barcodeScanRes = 'geo:40.07037605499038,-2.137388990500356';
+
+          if(barcodeScanRes == '-1') return;
 
           final scanListProvider = Provider.of<ScanListProvider>(context, listen: false);
-          scanListProvider.nuevoScan(barcodeScanRes);
-          scanListProvider.nuevoScan('geo:15.33.15.66');
+          final nuevoScan = await scanListProvider.nuevoScan(barcodeScanRes);
+
+          launchURL(context, nuevoScan);
       }, 
       child: Icon(Icons.filter_center_focus)
     );
