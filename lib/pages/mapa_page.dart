@@ -26,16 +26,47 @@ class _MapaPageState extends State<MapaPage>
       zoom: 17.5,
     );
 
+    // Marcadores
+    Set<Marker> markers = new Set<Marker>();
+    markers.add(new Marker(markerId: MarkerId('geo-location'), position: scan.getLatLng()));
+
     return Scaffold(
-      appBar: AppBar(title: Text('Mapa')),
+      appBar: AppBar
+      (
+        title: Text('Mapa'),
+        actions: 
+        [
+          IconButton
+          (
+            icon: Icon(Icons.location_searching), 
+            onPressed: () async
+            {
+              final GoogleMapController controller = await _controller.future;
+              controller.animateCamera(CameraUpdate.newCameraPosition
+              (
+                CameraPosition
+                (
+                  target: scan.getLatLng(),
+                  zoom: 17.5
+                ),
+              ));
+            })          
+        ],
+      ),
       body: GoogleMap(
         myLocationButtonEnabled: true,
         myLocationEnabled: true,
         mapType: MapType.normal,
+        markers: markers,
         initialCameraPosition: puntoInicial,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
+      ),
+      floatingActionButton: FloatingActionButton
+      (
+        onPressed: null,
+        child: Icon(Icons.layers),
       ),
    );
   }
