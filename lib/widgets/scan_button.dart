@@ -14,7 +14,7 @@ class ScanButton extends StatelessWidget {
       {
         // Comentamos debido a que desde el emulador no podemos leer un QR
         // Hemos comprobado su funcionamiento en dispositivos móviles y funciona perfectamente
-        /*
+        
         String barcodeScanRes = 
           await FlutterBarcodeScanner.scanBarcode
           (
@@ -23,8 +23,8 @@ class ScanButton extends StatelessWidget {
             false, 
             ScanMode.QR // También podríamos usar un código de barras
           );
-          */
-          final barcodeScanRes = 'geo:40.07037605499038,-2.137388990500356';
+          
+          //final barcodeScanRes = 'geo:40.07037605499038,-2.137388990500356';
 
           if(barcodeScanRes == '-1') return;
 
