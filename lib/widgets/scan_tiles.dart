@@ -4,31 +4,42 @@ import 'package:qrreader/providers/scan_list_provider.dart';
 import 'package:qrreader/utils/utils.dart';
 
 class ScanTiles extends StatelessWidget {
-
+  
   final String tipo;
 
-  const ScanTiles({required this.tipo});
+  const ScanTiles({ required this.tipo });
+
 
   @override
   Widget build(BuildContext context) {
-    final scanListProvider = Provider.of<ScanListProvider>(context, listen: true); // Dentro de un build lo usaremos en true
+    
+    final scanListProvider = Provider.of<ScanListProvider>(context);
     final scans = scanListProvider.scans;
 
-    return ListView.builder
-    (
-      itemBuilder: (_, i) => ListTile
-        (
-          leading: 
-          Icon
-          (
-            this.tipo == 'http' ? Icons.screen_search_desktop_outlined : Icons.location_on, 
-            color: Theme.of(context).primaryColor
+    return ListView.builder(
+      itemCount: scans.length,
+      itemBuilder: ( _, i ) => Dismissible(
+        key: UniqueKey(),
+        background: Container(
+          color: Colors.red.shade300,
+        ),
+        onDismissed: (DismissDirection direction) {
+          Provider.of<ScanListProvider>(context, listen: false)
+              .borrarScanPorId(scans[i].id);
+        },
+        child: ListTile(
+          leading: Icon( 
+            this.tipo == 'http'
+              ? Icons.home_outlined
+              : Icons.map_outlined, 
+            color: Theme.of(context).primaryColor 
           ),
-          title: Text(scans[i].valor),
-          subtitle: Text(scans[i].id.toString()),
-          trailing: Icon(Icons.keyboard_arrow_right, color: Colors.grey),
+          title: Text( scans[i].valor ),
+          subtitle: Text( scans[i].id.toString() ),
+          trailing: Icon( Icons.keyboard_arrow_right, color: Colors.grey ),
           onTap: () => launchURL(context, scans[i]),
         ),
-      itemCount: scans.length);
+      )
+    );
   }
 }
